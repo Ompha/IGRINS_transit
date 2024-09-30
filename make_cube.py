@@ -40,8 +40,8 @@ def make_cube(path,date,Tprimary_UT,Per,radeg,decdeg,skyorder,exptime,badorders,
 		hdu_list = fits.open(filearr_specH[i])
 		image_dataH = hdu_list[0].data
 		hdr=hdu_list[0].header
-		date_beginH=hdr['DATE-OBS']
-		date_endH=hdr['DATE-END']
+		date_beginH=hdr['UTSTART']
+		date_endH=hdr['UTEND']
 		t1=Time(date_beginH,format='isot',scale='utc') #date of observation, in TimeISOT format from astropy
 		time_start[i]=t1.mjd
 
@@ -49,8 +49,8 @@ def make_cube(path,date,Tprimary_UT,Per,radeg,decdeg,skyorder,exptime,badorders,
 		hdu_list = fits.open(filearr_specK[i])
 		image_dataK = hdu_list[0].data
 		hdr=hdu_list[0].header
-		date_beginK=hdr['DATE-OBS']
-		date_endK=hdr['DATE-END']
+		date_beginK=hdr['UTSTART']
+		date_endK=hdr['UTEND']
 		if date_beginK!=date_beginH:
 			print('ERROR: H and K files are misaligned')
 		data=np.concatenate([image_dataK,image_dataH])
@@ -68,7 +68,7 @@ def make_cube(path,date,Tprimary_UT,Per,radeg,decdeg,skyorder,exptime,badorders,
 
 	#calculating observed phases
 	print('Calculating observed phases...')
-	gemini = EarthLocation.from_geodetic(lat=-30.2407*u.deg, lon=-70.7366*u.deg, height=2722*u.m)
+	gemini = EarthLocation.from_geodetic(lat=19.8238*u.deg, lon=-155.4689*u.deg, height=4212*u.m)
 	tprimary=Time(Tprimary_UT, format='isot', scale='tdb', location=gemini).mjd
 	phi=np.zeros(num_files)
 	for i in range(num_files):

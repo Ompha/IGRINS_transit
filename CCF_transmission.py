@@ -146,7 +146,7 @@ def run_CCF(wl_data,pca_clean_data,pca_noplanet,model,phi,Vbary,Kp,Vsys,scale,nu
     cbar.ax.tick_params(labelsize=15,width=2,length=6)
     plt.tick_params(labelsize=20,axis="both",top=True,right=True,width=2,length=8,direction='in')
     plt.tight_layout()
-    plt.savefig('CCF'+name+'.pdf',fmt='pdf')
+    plt.savefig('CCF'+name+'_transmission.pdf',format='pdf')
     plt.show()
 
     rc('axes',linewidth=2)
@@ -162,7 +162,7 @@ def run_CCF(wl_data,pca_clean_data,pca_noplanet,model,phi,Vbary,Kp,Vsys,scale,nu
     cbar.ax.tick_params(labelsize=15,width=2,length=6)
     plt.tick_params(labelsize=20,axis="both",top=True,right=True,width=2,length=8,direction='in')
     plt.tight_layout()
-    plt.savefig('CCF_SNR'+name+'.pdf',fmt='pdf')
+    plt.savefig('CCF_SNR'+name+'_transmission.pdf',format='pdf')
     plt.show()
 
     return CCFarr

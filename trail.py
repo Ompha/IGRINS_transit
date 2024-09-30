@@ -114,10 +114,10 @@ def trail(wl_data,pca_clean_data,pca_noplanet,model,phi,Vbary,Kp,Vsys,scale,Per,
     plt.subplots_adjust(left=0.1, right=0.9, top=0.7, bottom=0.3)
     plt.tick_params(labelsize=20,axis="both",top=True,right=True,width=2,length=8,direction='in')
     plt.tight_layout()
-    plt.savefig('trail.pdf',fmt='pdf')
+    plt.savefig('trail.pdf',format='pdf')
     plt.show()
 
-    return CCF
+    return CCF, Vel
 
 
 

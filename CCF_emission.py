@@ -79,13 +79,16 @@ def log_likelihood_PCA(Vsys, Kp, scale, cs_p, Kstar, cs_s, wl_data, pca_clean_da
 
 #################
 def run_CCF(wl_data, pca_clean_data, pca_noplanet, model, phi, Vbary, Kp, Vsys,\
-    Kstar, scale, numPCs, vsini, Rp, Rstar, name='test', output=True, verbose=False):
+    Kstar, scale, numPCs, vsini, Rp, Rstar, name='test', output=True, verbose=False, vsys_baseline = 30, 
+    vsys_hi = 1, kp_baseline = 80, kp_hi = 80, 
+    kparr_steps =21, vsys_steps =11):
 
     num_orders, num_files, num_pixels = pca_clean_data.shape
 
     #set up array of Kp and Vsys values to perform cross-correlation at
-    Kparr=np.linspace(np.floor(Kp)-60,np.floor(Kp)+60,21) #FINDME: EDIT
-    Vsysarr=np.linspace(np.floor(Vsys)-15,np.floor(Vsys)+15,11)
+    Kparr=np.linspace(np.floor(Kp)-kp_baseline,np.floor(Kp)+kp_hi,kparr_steps) #FINDME: EDIT
+    Vsysarr=np.linspace(np.floor(Vsys)-vsys_baseline, vsys_hi,vsys_steps)
+    # Vsysarr=np.linspace(np.floor(Vsys)-15,np.floor(Vsys)+15,11)
 
     logLarr=np.zeros((len(Kparr),len(Vsysarr)))
     CCFarr=np.zeros((len(Kparr),len(Vsysarr)))
@@ -142,13 +145,13 @@ def run_CCF(wl_data, pca_clean_data, pca_noplanet, model, phi, Vbary, Kp, Vsys,\
     cbar=plt.colorbar(cax)
     plt.axvline(x=Vsys,color='white',ls='--',lw=2,zorder=1)
     plt.axhline(y=Kp,color='white',ls='--',lw=2,zorder=1)
-    plt.xlabel('$\Delta$V$_{sys}$ [km/s]',fontsize=20)
+    plt.xlabel(r'$\Delta$V$_{sys}$ [km/s]',fontsize=20)
     plt.ylabel('K$_{p}$ [km/s]',fontsize=20)
     cbar.set_label('Cross-correlation coefficient',fontsize=15)
     cbar.ax.tick_params(labelsize=15,width=2,length=6)
     plt.tick_params(labelsize=20,axis="both",top=True,right=True,width=2,length=8,direction='in')
     plt.tight_layout()
-    plt.savefig('CCF'+name+'.pdf',fmt='pdf')
+    plt.savefig('CCF'+name+'.pdf',format='pdf')
     plt.show()
 
     rc('axes',linewidth=2)
@@ -164,7 +167,7 @@ def run_CCF(wl_data, pca_clean_data, pca_noplanet, model, phi, Vbary, Kp, Vsys,\
     cbar.ax.tick_params(labelsize=15,width=2,length=6)
     plt.tick_params(labelsize=20,axis="both",top=True,right=True,width=2,length=8,direction='in')
     plt.tight_layout()
-    plt.savefig('CCF_SNR'+name+'.pdf',fmt='pdf')
+    plt.savefig('CCF_SNR'+name+'.pdf',format='pdf')
     plt.show()
 
     return CCFarr
